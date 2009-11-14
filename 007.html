@@ -1,0 +1,56 @@
+<html>
+<head>
+<title>007</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script>
+function navigate(e) {
+    var keynum = (window.event) // IE
+        ? e.keyCode
+        : e.which;
+    if (keynum == 8) {
+        window.location = "006" + ".html";
+        return false;
+    }
+    if (keynum == 13 || keynum == 32) {
+        window.location = "008" + ".html";
+        return false;
+    }
+    if (keynum == 73 || keynum == 105) {
+        window.location = "index.html";
+        return false;
+    }
+    return true;
+}
+</script>
+</head>
+<body onkeypress="return navigate(event)">
+<pre>
+
+
+
+
+
+                               Pivot tables in earth science
+     
+     * Data from satellites is divided into pieces (temporal, spatial, visual, etc.)
+     * Pieces are stored in files.
+     * Metadata about the files is stored in a database.
+     * Files are available to minions in a cluster for processing.
+     * Applications run on the minions, applying science algorithms,
+          requesting and producing files.
+     * New files are generated with new metadata, also made available
+          for further processing.
+     * Individual minions keep local caches of the files, and their metadata.
+     * SQLite is used for maintaining the caches.
+     * Portion of the sqlite schemas use the EAV model for file metadata.
+
+
+
+
+
+
+
+
+
+</pre>
+</body>

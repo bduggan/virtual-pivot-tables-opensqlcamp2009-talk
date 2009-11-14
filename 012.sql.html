@@ -1,0 +1,57 @@
+<html>
+<head>
+<title>012.sql</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script>
+function navigate(e) {
+    var keynum = (window.event) // IE
+        ? e.keyCode
+        : e.which;
+    if (keynum == 8) {
+        window.location = "011.sql" + ".html";
+        return false;
+    }
+    if (keynum == 13 || keynum == 32) {
+        window.location = "013.sql" + ".html";
+        return false;
+    }
+    if (keynum == 73 || keynum == 105) {
+        window.location = "index.html";
+        return false;
+    }
+    return true;
+}
+</script>
+</head>
+<body onkeypress="return navigate(event)">
+<pre>                                      Aggregate query
+
+* base_table        student subject    grade
+                    ------- ---------- -----
+                    Fred    reading    A
+                    Fred    writing    B
+                    Fred    arithmetic C
+                    Mary    reading    B
+                    Mary    writing    B
+                    Mary    arithmetic C
+
+CREATE VIEW pivot_table AS
+SELECT
+    student,
+    GROUP_CONCAT(CASE WHEN subject='reading' THEN grade ELSE NULL END) as reading,
+    GROUP_CONCAT(CASE WHEN subject='writing' THEN grade ELSE NULL END) as writing,
+    GROUP_CONCAT(CASE WHEN subject='arithmetic' THEN grade ELSE NULL END) as arithmetic,
+FROM base_table
+GROUP BY student;
+
+* pivot_table
+                    student reading writing arithmetic
+                    ------- ------- ------- -------
+                    Fred    A       B       C
+                    Mary    B       B       C
+
+/* What if you add a new subject?        */
+/* Good for large result sets.           */
+/* Performance for small results sets?   */
+</pre>
+</body>

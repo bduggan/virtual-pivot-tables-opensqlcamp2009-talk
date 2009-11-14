@@ -1,0 +1,56 @@
+<html>
+<head>
+<title>018</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script>
+function navigate(e) {
+    var keynum = (window.event) // IE
+        ? e.keyCode
+        : e.which;
+    if (keynum == 8) {
+        window.location = "017.pl" + ".html";
+        return false;
+    }
+    if (keynum == 13 || keynum == 32) {
+        window.location = "019" + ".html";
+        return false;
+    }
+    if (keynum == 73 || keynum == 105) {
+        window.location = "index.html";
+        return false;
+    }
+    return true;
+}
+</script>
+</head>
+<body onkeypress="return navigate(event)">
+<pre>                                   Performance of queries
+  
+  * compared three techniques :
+  
+  * self-join view:
+      CREATE VIEW pivot_table AS
+      SELECT a.student AS student, b.grade AS reading, c.grade AS writing, d.grade AS arithmetic
+      FROM (SELECT DISTINCT(student) FROM base_table) a
+      INNER JOIN (SELECT student,grade FROM base_table WHERE subject='reading') b
+           ON b.student=a.student
+      INNER JOIN (SELECT student,grade FROM base_table WHERE subject='writing') c
+           ON c.student = a.student
+      ...
+  
+  *  aggregate view:
+      CREATE VIEW pivot_table AS
+      SELECT
+          student,
+          GROUP_CONCAT(CASE WHEN subject='reading' THEN grade ELSE NULL END) as reading,
+          GROUP_CONCAT(CASE WHEN subject='writing' THEN grade ELSE NULL END) as writing,
+      ...
+      GROUP BY student
+  
+  *   virtual pivot table:
+      CREATE VIRTUAL TABLE pivot_table
+           USING perl (&quot;SQLite::VirtualTable::Pivot&quot;, &quot;base_table&quot;);
+
+
+</pre>
+</body>

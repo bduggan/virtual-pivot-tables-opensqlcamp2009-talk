@@ -1,0 +1,56 @@
+<html>
+<head>
+<title>015</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script>
+function navigate(e) {
+    var keynum = (window.event) // IE
+        ? e.keyCode
+        : e.which;
+    if (keynum == 8) {
+        window.location = "014" + ".html";
+        return false;
+    }
+    if (keynum == 13 || keynum == 32) {
+        window.location = "016" + ".html";
+        return false;
+    }
+    if (keynum == 73 || keynum == 105) {
+        window.location = "index.html";
+        return false;
+    }
+    return true;
+}
+</script>
+</head>
+<body onkeypress="return navigate(event)">
+<pre>
+
+
+
+
+
+
+
+                                       Implementation
+  
+  Sqlite virtual tables
+  
+  * Allow a custom backend to be used for data storage and retrieval.
+  * C API
+  * Wrapped in Perl by Salvador Fandiño's SQLite::VirtualTable
+  * To create virtual tables in Perl, just create a class derived
+    from SQLite::VirtualTable
+  * (e.g. SQLite::VirtualTable::CSV for comma separated values)
+
+
+
+
+
+
+
+
+
+
+</pre>
+</body>

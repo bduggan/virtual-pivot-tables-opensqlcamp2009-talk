@@ -1,0 +1,56 @@
+<html>
+<head>
+<title>014</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script>
+function navigate(e) {
+    var keynum = (window.event) // IE
+        ? e.keyCode
+        : e.which;
+    if (keynum == 8) {
+        window.location = "013.sql" + ".html";
+        return false;
+    }
+    if (keynum == 13 || keynum == 32) {
+        window.location = "015" + ".html";
+        return false;
+    }
+    if (keynum == 73 || keynum == 105) {
+        window.location = "index.html";
+        return false;
+    }
+    return true;
+}
+</script>
+</head>
+<body onkeypress="return navigate(event)">
+<pre>                                           Usage
+  
+  * Default for a three column table :
+  
+  CREATE VIRTUAL TABLE pivot_table USING perl
+      (&quot;SQLite::VirtualTable::Pivot&quot;,&quot;base_table&quot;);
+  
+  * Specify the pivot columns:
+  
+  CREATE VIRTUAL TABLE pivot_table USING perl
+       (&quot;SQLite::VirtualTable::Pivot&quot;,&quot;base_table&quot;,
+       &quot;pivot_row&quot;, &quot;pivot_column&quot;, &quot;pivot_value&quot;);
+  
+  CREATE VIRTUAL TABLE pivot_table USING perl
+       (&quot;SQLite::VirtualTable::Pivot&quot;,&quot;base_table&quot;,
+       &quot;entity&quot;, &quot;attribute&quot;, &quot;value&quot;);
+  
+  * Can also transparently handle foreign keys in the base table:
+  * &lt;base table column&gt;-&gt;&lt;child table&gt;.(&lt;child table id&gt;).&lt;child table column&gt;
+  
+   CREATE VIRTUAL TABLE pivot_table USING perl
+        (&quot;SQLite::VirtualTable::Pivot&quot;,&quot;base_table&quot;,
+          &quot;entity_id-&gt;entity_lookup(id).entity&quot;,
+          &quot;attribute_id-&gt;attribute_lookup(id).attribute&quot;,
+          &quot;value_id-&gt;value_lookup(id).value&quot; );
+
+
+
+</pre>
+</body>
