@@ -1,0 +1,56 @@
+<html>
+<head>
+<title>011.sql</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script>
+function navigate(e) {
+    var keynum = (window.event) // IE
+        ? e.keyCode
+        : e.which;
+    if (keynum == 8) {
+        window.location = "010" + ".html";
+        return false;
+    }
+    if (keynum == 13 || keynum == 32) {
+        window.location = "012.sql" + ".html";
+        return false;
+    }
+    if (keynum == 73 || keynum == 105) {
+        window.location = "index.html";
+        return false;
+    }
+    return true;
+}
+</script>
+</head>
+<body onkeypress="return navigate(event)">
+<pre>                                         Self join
+
+* base_table        student subject    grade
+                    ------- ---------- -----
+                    Fred    reading    A
+                    Fred    writing    B
+                    Fred    arithmetic C
+                    Mary    reading    B
+                    Mary    writing    B
+                    Mary    arithmetic C
+
+CREATE VIEW pivot_table AS
+SELECT a.student AS student, b.grade AS reading, c.grade AS writing, d.grade AS arithmetic
+FROM (SELECT DISTINCT(student) FROM base_table) a
+INNER JOIN (SELECT student,grade FROM base_table WHERE subject='reading') b
+     ON b.student=a.student
+INNER JOIN (SELECT student,grade FROM base_table WHERE subject='writing') c
+     ON c.student = a.student
+INNER JOIN (SELECT student,grade FROM base_table WHERE subject='arithmetic') d 
+     ON d.student = a.student;
+
+* pivot_table       student reading writing arithmetic
+                    ------- ------- ------- ----------
+                    Fred    A       B       C
+                    Mary    B       B       C
+
+/* What if you add a new subject? */
+/* Performance?                   */
+</pre>
+</body>

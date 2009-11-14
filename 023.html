@@ -1,0 +1,56 @@
+<html>
+<head>
+<title>023</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script>
+function navigate(e) {
+    var keynum = (window.event) // IE
+        ? e.keyCode
+        : e.which;
+    if (keynum == 8) {
+        window.location = "022" + ".html";
+        return false;
+    }
+    if (keynum == 13 || keynum == 32) {
+        window.location = "024" + ".html";
+        return false;
+    }
+    if (keynum == 73 || keynum == 105) {
+        window.location = "index.html";
+        return false;
+    }
+    return true;
+}
+</script>
+</head>
+<body onkeypress="return navigate(event)">
+<pre>                     Overview of SQLite::VirtualTable::Pivot algorithm
+  
+   SELECT entity FROM pivot_table
+       WHERE attribute_1 = value_1 and attribute_2 = value_2;
+  
+  becomes
+  
+   CREATE TEMPORARY TABLE temp1 AS
+      SELECT distinct(entity) as entity
+      FROM base_table
+      WHERE name='attribute_1' AND value = 'value_1';
+  
+   CREATE TEMPORARY TABLE temp2 AS
+      SELECT distinct(entity) as entity
+      FROM base_table
+      WHERE name='attribute_2' AND value = 'value_2';
+  
+   SELECT a.entity,a.attribute,a.value
+      FROM base_table a
+        INNER JOIN temp1 ON temp1.entity = a.entity
+        INNER JOIN temp2 ON temp2.entity = a.entity
+      ORDER BY a.entity
+  
+   Then, rows are pivoted one at a time as they are returned.
+  
+   (NB: temp tables are memory-only)
+
+
+</pre>
+</body>

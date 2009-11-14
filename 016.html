@@ -1,0 +1,56 @@
+<html>
+<head>
+<title>016</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script>
+function navigate(e) {
+    var keynum = (window.event) // IE
+        ? e.keyCode
+        : e.which;
+    if (keynum == 8) {
+        window.location = "015" + ".html";
+        return false;
+    }
+    if (keynum == 13 || keynum == 32) {
+        window.location = "017.pl" + ".html";
+        return false;
+    }
+    if (keynum == 73 || keynum == 105) {
+        window.location = "index.html";
+        return false;
+    }
+    return true;
+}
+</script>
+</head>
+<body onkeypress="return navigate(event)">
+<pre>
+
+                                       Implementation
+  
+  * SQLite Virtual Table API allows the programmer to
+    * create and iterate cursors
+    * provide a list of indexes
+    * allow sqlite to filter results or do it on the backend
+  
+  * With SQLite::VirtualTable, one writes a derived class providing :
+    * CREATE      - When the table is created or used, initialize a new object.
+    * DECLARE_SQL - Called after CREATE to indicate the columns in the table.
+    * OPEN        - When a query is run, open a cursor.
+    * BEST_INDEX  - Given a set of constraints, choose the best index and
+                    estimate the cost.
+    * FILTER      - Given an index and bind parameters, filter the result set.
+    * NEXT        - Iterate one step.
+    * COLUMN      - Return the value for a column.
+    * ROWID       - Return a unique row id.
+    * EOF         - Indicates that there are no more rows.
+    * CLOSE       - Close a cursor.
+    * DROP        - Drop the virtual table.
+    * DISCONNECT  - Disconnect from the database.
+
+
+
+
+
+</pre>
+</body>
